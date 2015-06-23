@@ -1,0 +1,6 @@
+
+<RCC>
+  <qresource prefix="hoofmeasurementstep">
+    <file>images/morphometric.png</file>
+  </qresource>
+</RCC>
