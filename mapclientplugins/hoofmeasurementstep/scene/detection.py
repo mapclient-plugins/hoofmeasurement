@@ -25,7 +25,7 @@ class DetectionScene(object):
         iso_scalar_field = self._model.getIsoScalarField()
         scene = region.getScene()
         self._surface_graphic = _createContourGraphics(scene, coordinate_field, iso_scalar_field)
-        self._temp_points = _createPointsGraphics(scene, coordinate_field, None)
+#         self._temp_points = _createPointsGraphics(scene, coordinate_field, None)
 #         self._temp_lines = _createLinesGraphics(scene, coordinate_field)
         
 

@@ -22,12 +22,15 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
         super(ZincHoofMeasurementWidget, self).__init__(parent)
         self._model = None
         self._active_button = QtCore.Qt.NoButton
+        self._plane_angle = None
         
     def setModel(self, model):
         self._model = model
         
+    def setPlaneAngle(self, value):
+        self._plane_angle = value
+
     def deleteSelectedNodes(self):
-        print 'delete current selection'
         self._model.removeSelected()
         
     def mousePressEvent(self, event):
@@ -48,11 +51,13 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
                     self._model.clearSelected()
                     node = self._model.createNode()
                     self._model.setNodeLocation(node, point_on_plane)
+                    self._model.setNodeAngle(node, self._plane_angle)
                     self._active_node = node
             elif node_graphic is not None and node_graphic == nearest_graphics:
                 self._model.clearSelected()
                 node = self.getNearestNode(event.x(), event.y())
                 self._model.setSelected(node)
+                self._model.setNodeAngle(node, self._plane_angle)
                 self._active_node = node
                 self._active_plane = 'pending'
         else:

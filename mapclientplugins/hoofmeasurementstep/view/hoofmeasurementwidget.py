@@ -8,6 +8,9 @@ from PySide import QtGui
 from ui_hoofmeasurementwidget import Ui_HoofMeasurementWidget
 from mapclientplugins.hoofmeasurementstep.scene.hoofmeasurementscene import HoofMeasurementScene
 
+ANGLE_RANGE = 50
+
+
 class HoofMeasurementWidget(QtGui.QWidget):
     '''
     classdocs
@@ -22,6 +25,18 @@ class HoofMeasurementWidget(QtGui.QWidget):
         self._ui = Ui_HoofMeasurementWidget()
         self._ui.setupUi(self)
         
+        angle_initial_value = 0
+        slider_range = [0, 2*ANGLE_RANGE]
+        slider_initial_value = ANGLE_RANGE
+        self._ui.lineEditAngle.setText(str(angle_initial_value))
+        self._ui.horizontalSliderAngle.setValue(slider_initial_value)
+        self._ui.horizontalSliderAngle.setMinimum(slider_range[0])
+        self._ui.horizontalSliderAngle.setMaximum(slider_range[1])
+        
+        v = QtGui.QIntValidator(-ANGLE_RANGE, ANGLE_RANGE)
+        self._ui.lineEditAngle.setValidator(v)
+        self._ui.labelAngle.setText('Angle [{0}, {1}] (Degrees):'.format(-ANGLE_RANGE, ANGLE_RANGE))
+        
         self._callback = None
        
         self._model = model
@@ -29,6 +44,7 @@ class HoofMeasurementWidget(QtGui.QWidget):
         
         self._ui.widgetZinc.setContext(model.getContext())
         self._ui.widgetZinc.setModel(model.getMarkerModel())
+        self._ui.widgetZinc.setPlaneAngle(angle_initial_value)
 #         self._ui.widgetZinc.setSelectionfilter(model.getSelectionfilter())
         
         self._makeConnections()
@@ -39,6 +55,7 @@ class HoofMeasurementWidget(QtGui.QWidget):
         self._ui.horizontalSliderAngle.valueChanged.connect(self._angleSliderValueChanged)
         self._ui.widgetZinc.graphicsInitialized.connect(self._zincWidgetReady)
         self._ui.pushButtonDeleteNode.clicked.connect(self._ui.widgetZinc.deleteSelectedNodes)
+        self._ui.lineEditAngle.returnPressed.connect(self._angleLineEditTextEditFinished)
         
     def getLandmarks(self):
         return self._model.getLandmarks()
@@ -63,8 +80,14 @@ class HoofMeasurementWidget(QtGui.QWidget):
         
     def _angleSliderValueChanged(self, value):
         angle = value - 50
-        self._ui.labelAngle.setText(str(angle))
+        self._ui.lineEditAngle.setText(str(angle))
         self._model.setRotationAngle(angle)
+        self._ui.widgetZinc.setPlaneAngle(angle)
         
-        
+    def _angleLineEditTextEditFinished(self):
+        angle = int(self._ui.lineEditAngle.text())
+        self._ui.horizontalSliderAngle.setValue(angle + ANGLE_RANGE)
+        self._model.setRotationAngle(angle)
+        self._ui.widgetZinc.setPlaneAngle(angle)
+    
         

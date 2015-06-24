@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'qt/hoofmeasurementwidget.ui'
 #
-# Created: Tue Jun 23 10:07:54 2015
+# Created: Wed Jun 24 12:07:59 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -33,13 +33,14 @@ class Ui_HoofMeasurementWidget(object):
         self.toolBox.setFrameShadow(QtGui.QFrame.Plain)
         self.toolBox.setObjectName("toolBox")
         self.pageFile = QtGui.QWidget()
-        self.pageFile.setGeometry(QtCore.QRect(0, 0, 189, 466))
+        self.pageFile.setGeometry(QtCore.QRect(0, 0, 200, 510))
         self.pageFile.setObjectName("pageFile")
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.pageFile)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.pushButtonSave = QtGui.QPushButton(self.pageFile)
+        self.pushButtonSave.setEnabled(False)
         self.pushButtonSave.setObjectName("pushButtonSave")
         self.horizontalLayout_4.addWidget(self.pushButtonSave)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -48,6 +49,7 @@ class Ui_HoofMeasurementWidget(object):
         self.horizontalLayout_5 = QtGui.QHBoxLayout()
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.pushButtonLoad = QtGui.QPushButton(self.pageFile)
+        self.pushButtonLoad.setEnabled(False)
         self.pushButtonLoad.setObjectName("pushButtonLoad")
         self.horizontalLayout_5.addWidget(self.pushButtonLoad)
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -67,7 +69,7 @@ class Ui_HoofMeasurementWidget(object):
         self.verticalLayout_2.addItem(spacerItem4)
         self.toolBox.addItem(self.pageFile, "")
         self.pageView = QtGui.QWidget()
-        self.pageView.setGeometry(QtCore.QRect(0, 0, 280, 411))
+        self.pageView.setGeometry(QtCore.QRect(0, 0, 200, 510))
         self.pageView.setObjectName("pageView")
         self.verticalLayout_3 = QtGui.QVBoxLayout(self.pageView)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -82,6 +84,7 @@ class Ui_HoofMeasurementWidget(object):
         self.horizontalLayout_6 = QtGui.QHBoxLayout()
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.pushButtonHideAll = QtGui.QPushButton(self.pageView)
+        self.pushButtonHideAll.setEnabled(False)
         self.pushButtonHideAll.setObjectName("pushButtonHideAll")
         self.horizontalLayout_6.addWidget(self.pushButtonHideAll)
         spacerItem6 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -100,7 +103,7 @@ class Ui_HoofMeasurementWidget(object):
         self.verticalLayout_3.addItem(spacerItem7)
         self.toolBox.addItem(self.pageView, "")
         self.pageSegmentation = QtGui.QWidget()
-        self.pageSegmentation.setGeometry(QtCore.QRect(0, 0, 176, 411))
+        self.pageSegmentation.setGeometry(QtCore.QRect(0, 0, 200, 510))
         self.pageSegmentation.setObjectName("pageSegmentation")
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.pageSegmentation)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
@@ -143,15 +146,16 @@ class Ui_HoofMeasurementWidget(object):
         self.groupBox_2.setObjectName("groupBox_2")
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.groupBox_2)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.label_2 = QtGui.QLabel(self.groupBox_2)
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout_6.addWidget(self.label_2)
+        self.labelAngle = QtGui.QLabel(self.groupBox_2)
+        self.labelAngle.setObjectName("labelAngle")
+        self.verticalLayout_6.addWidget(self.labelAngle)
         self.horizontalLayout_7 = QtGui.QHBoxLayout()
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
-        self.labelAngle = QtGui.QLabel(self.groupBox_2)
-        self.labelAngle.setMinimumSize(QtCore.QSize(50, 0))
-        self.labelAngle.setObjectName("labelAngle")
-        self.horizontalLayout_7.addWidget(self.labelAngle)
+        self.lineEditAngle = QtGui.QLineEdit(self.groupBox_2)
+        self.lineEditAngle.setMaximumSize(QtCore.QSize(40, 16777215))
+        self.lineEditAngle.setInputMethodHints(QtCore.Qt.ImhDigitsOnly|QtCore.Qt.ImhPreferNumbers)
+        self.lineEditAngle.setObjectName("lineEditAngle")
+        self.horizontalLayout_7.addWidget(self.lineEditAngle)
         self.horizontalSliderAngle = QtGui.QSlider(self.groupBox_2)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -185,7 +189,7 @@ class Ui_HoofMeasurementWidget(object):
         self.horizontalLayout.addWidget(self.widgetZinc)
 
         self.retranslateUi(HoofMeasurementWidget)
-        self.toolBox.setCurrentIndex(0)
+        self.toolBox.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(HoofMeasurementWidget)
 
     def retranslateUi(self, HoofMeasurementWidget):
@@ -202,8 +206,7 @@ class Ui_HoofMeasurementWidget(object):
         self.label.setText(QtGui.QApplication.translate("HoofMeasurementWidget", "Size:", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButtonDeleteNode.setText(QtGui.QApplication.translate("HoofMeasurementWidget", "Delete", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_2.setTitle(QtGui.QApplication.translate("HoofMeasurementWidget", "Plane", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_2.setText(QtGui.QApplication.translate("HoofMeasurementWidget", "Angle:", None, QtGui.QApplication.UnicodeUTF8))
-        self.labelAngle.setText(QtGui.QApplication.translate("HoofMeasurementWidget", "0.0", None, QtGui.QApplication.UnicodeUTF8))
+        self.labelAngle.setText(QtGui.QApplication.translate("HoofMeasurementWidget", "Angle:", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBox.setItemText(self.toolBox.indexOf(self.pageSegmentation), QtGui.QApplication.translate("HoofMeasurementWidget", "Segmentation", None, QtGui.QApplication.UnicodeUTF8))
 
 from zinchoofmeasurementwidget import ZincHoofMeasurementWidget

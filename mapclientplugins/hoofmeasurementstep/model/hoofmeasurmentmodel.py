@@ -57,8 +57,8 @@ class HoofMeasurementModel(object):
     
     def setCoordinateDescription(self, coordinate_description):
         point = coordinate_description[0]
-        x = sub(coordinate_description[1], coordinate_description[0])
-        y = sub(coordinate_description[2], coordinate_description[0])
+        x = sub(coordinate_description[2], coordinate_description[0])
+        y = sub(coordinate_description[1], coordinate_description[0])
         normal = normalize(cross(x, y))
         self._reference_normal = normal
         self._origin = point

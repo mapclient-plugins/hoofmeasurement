@@ -35,6 +35,19 @@ class MarkerModel(object):
         
         return None
     
+    def getNodeAngle(self, node):
+        fieldmodule = self._region.getFieldmodule()
+        fieldcache = fieldmodule.createFieldcache()
+        fieldmodule.beginChange()
+        fieldcache.setNode(node)
+        result, angle = self._angle_field.evaluateReal(fieldcache, 1)
+        fieldmodule.endChange()
+        
+        if result == OK:
+            return angle
+        
+        return None
+    
     def getPlaneDescription(self):
         return self._parent.getPlaneDescription()
     
@@ -52,11 +65,16 @@ class MarkerModel(object):
         nodeset = fieldmodule.findNodesetByFieldDomainType(Field.DOMAIN_TYPE_NODES)
         ni = nodeset.createNodeiterator()
         node = ni.next()
-        locations = []
+        locations = {}
         while node.isValid():
             location = self.getNodeLocation(node)
-            locations.append(location)
-            lm[str(node.getIdentifier())] = location
+            angle = self.getNodeAngle(node)
+            angle_key = str(angle)
+            if angle_key not in locations:
+                locations[angle_key] = []
+            locations[angle_key].append(location)
+
+            lm[str(node.getIdentifier())] = {'pos': location, 'angle': angle}
             node = ni.next()
             
         fieldmodule.endChange()
@@ -70,6 +88,14 @@ class MarkerModel(object):
         fieldcache.setNode(node)
         self._coordinate_field.assignReal(fieldcache, location)
         fieldmodule.endChange()
+        
+    def setNodeAngle(self, node, angle):
+        fieldmodule = self._region.getFieldmodule()
+        fieldcache = fieldmodule.createFieldcache()
+        fieldmodule.beginChange()
+        fieldcache.setNode(node)
+        self._angle_field.assignReal(fieldcache, angle)
+        fieldmodule.endChange()        
        
     def setSelected(self, node):
         self._selection_group.addNode(node)
@@ -90,6 +116,7 @@ class MarkerModel(object):
         nodeset = fieldmodule.findNodesetByFieldDomainType(Field.DOMAIN_TYPE_NODES)
         template = nodeset.createNodetemplate()
         template.defineField(self._coordinate_field)
+        template.defineField(self._angle_field)
 
         scene = self._region.getScene()
         selection_field = scene.getSelectionField()
@@ -112,6 +139,7 @@ class MarkerModel(object):
         self._coordinate_field = createFiniteElementField(region)
 
         fieldmodule = region.getFieldmodule()
+        self._angle_field = fieldmodule.createFieldFiniteElement(1)
         nodeset = fieldmodule.findNodesetByName('nodes')
 
         # Setup the selection fields

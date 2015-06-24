@@ -28,7 +28,7 @@ class HoofMeasurementStep(WorkflowStepMountPoint):
         # Ports:
         self.addPort(('http://physiomeproject.org/workflow/1.0/rdf-schema#port',
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#provides',
-                      'http://physiomeproject.org/workflow/1.0/rdf-schema#dict'))
+                      'http://physiomeproject.org/workflow/1.0/rdf-schema#hoofmarkers'))
         self.addPort(('http://physiomeproject.org/workflow/1.0/rdf-schema#port',
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#uses',
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#coordinate_description'))
@@ -82,6 +82,7 @@ class HoofMeasurementStep(WorkflowStepMountPoint):
         The index is the index of the port in the port list.  If there is only one
         provides port for this step then the index can be ignored.
         '''
+        print self._view.getLandmarks()
         return self._view.getLandmarks() # http://physiomeproject.org/workflow/1.0/rdf-schema#dict
 
     def configure(self):
