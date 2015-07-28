@@ -24,12 +24,20 @@ class DetectionScene(object):
         region = self._model.getRegion()
         iso_scalar_field = self._model.getIsoScalarField()
         scene = region.getScene()
-        self._surface_graphic = _createContourGraphics(scene, coordinate_field, iso_scalar_field)
+        material = _createMaterial(scene)
+        self._surface_graphic = _createContourGraphics(scene, coordinate_field, iso_scalar_field, material)
 #         self._temp_points = _createPointsGraphics(scene, coordinate_field, None)
 #         self._temp_lines = _createLinesGraphics(scene, coordinate_field)
         
+def _createMaterial(scene):
+    materialmodule = scene.getMaterialmodule()
+    material = materialmodule.createMaterial()
+    material.setAttributeReal3(material.ATTRIBUTE_AMBIENT, [0.25, 1.0, 0.33])
+    material.setAttributeReal3(material.ATTRIBUTE_DIFFUSE, [0.0, 0.4, 0.0])
+    
+    return material
 
-def _createContourGraphics(scene, finite_element_field, iso_scalar_field):
+def _createContourGraphics(scene, finite_element_field, iso_scalar_field, material):
     scene.beginChange()
     # Create a surface graphic and set it's coordinate field
     # to the finite element coordinate field.
@@ -38,7 +46,7 @@ def _createContourGraphics(scene, finite_element_field, iso_scalar_field):
     graphic.setIsoscalarField(iso_scalar_field)
     graphic.setListIsovalues(0.0)
 
-#         graphic.setMaterial(material)
+    graphic.setMaterial(material)
 #         graphic.setSelectedMaterial(material)
 #         graphic.setSubgroupField(subgroup_field)
     scene.endChange()

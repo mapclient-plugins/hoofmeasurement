@@ -82,7 +82,7 @@ class HoofMeasurementStep(WorkflowStepMountPoint):
         The index is the index of the port in the port list.  If there is only one
         provides port for this step then the index can be ignored.
         '''
-        print self._view.getLandmarks()
+        print(self._view.getLandmarks())
         return self._view.getLandmarks() # http://physiomeproject.org/workflow/1.0/rdf-schema#dict
 
     def configure(self):

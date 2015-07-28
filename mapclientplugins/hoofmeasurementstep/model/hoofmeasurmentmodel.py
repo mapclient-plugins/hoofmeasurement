@@ -7,7 +7,7 @@ from math import cos, sin, pi
 
 from opencmiss.zinc.context import Context
 
-from vrmlparser.parser import VRMLParser
+from meshparser.vrmlparser.parser import VRMLParser
 
 from mapclientplugins.hoofmeasurementstep.utils.zinc import \
     createNodes, createElements, createFiniteElementField,\

@@ -5,7 +5,7 @@ Created on Jun 18, 2015
 '''
 from PySide import QtGui
 
-from ui_hoofmeasurementwidget import Ui_HoofMeasurementWidget
+from mapclientplugins.hoofmeasurementstep.view.ui_hoofmeasurementwidget import Ui_HoofMeasurementWidget
 from mapclientplugins.hoofmeasurementstep.scene.hoofmeasurementscene import HoofMeasurementScene
 
 ANGLE_RANGE = 50
@@ -50,7 +50,7 @@ class HoofMeasurementWidget(QtGui.QWidget):
         self._makeConnections()
         
     def _makeConnections(self):
-        self._ui.pushButtonDone.clicked.connect(self._doneExecution)
+        self._ui.pushButtonContinue.clicked.connect(self._continueExecution)
         self._ui.pushButtonViewAll.clicked.connect(self._viewAllButtonClicked)
         self._ui.horizontalSliderAngle.valueChanged.connect(self._angleSliderValueChanged)
         self._ui.widgetZinc.graphicsInitialized.connect(self._zincWidgetReady)
@@ -75,7 +75,7 @@ class HoofMeasurementWidget(QtGui.QWidget):
     def _viewAllButtonClicked(self):
         self._ui.widgetZinc.viewAll()
         
-    def _doneExecution(self):
+    def _continueExecution(self):
         self._callback()
         
     def _angleSliderValueChanged(self, value):

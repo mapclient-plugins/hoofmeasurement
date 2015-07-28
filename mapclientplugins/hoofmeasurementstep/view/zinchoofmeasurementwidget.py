@@ -44,7 +44,7 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
         self._active_node = None
         if (event.modifiers() & QtCore.Qt.CTRL) and event.button() == QtCore.Qt.LeftButton:
             node_graphic = self.getNearestGraphicsNode(event.x(), event.y())
-            nearest_graphics = self.getNeareshGraphics()
+            nearest_graphics = self.getNearestGraphics()
             if node_graphic is None and nearest_graphics.isValid():
                 point_on_plane = self._calculatePointOnPlane(event.x(), event.y())
                 if point_on_plane is not None:
