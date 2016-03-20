@@ -90,7 +90,7 @@ class HoofMeasurementModel(object):
         v = VRMLParser()
         v.parse(file_location)
         self._nodes = v.getPoints()
-        self._elements = _convertToElementList(v.getElements())
+        self._elements = _makeElementsOneBased(v.getElements())
         extents = _calculateExtents(self._nodes)
         self._detection_model.setExtents(extents)
         self._createMesh(self._nodes, self._elements)
@@ -175,6 +175,17 @@ class HoofMeasurementModel(object):
         material_module = self._context.getMaterialmodule()
         material_module.defineStandardMaterials()
 
+
+def _makeElementsOneBased(elements_list):
+    """
+    Take a list of a list of element node indexes and increment the
+    node index by one.
+    """
+    updated_elements = []
+    for el in elements_list:
+        updated_elements.append([n + 1 for n in el])
+
+    return updated_elements
 
 def _convertToElementList(elements_list):
     """

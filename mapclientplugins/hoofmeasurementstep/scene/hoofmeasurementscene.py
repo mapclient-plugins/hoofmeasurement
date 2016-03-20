@@ -32,11 +32,11 @@ class HoofMeasurementScene(object):
         scene = region.getScene()
         materialmodule = scene.getMaterialmodule()
 #         blue = materialmodule.findMaterialByName('blue')
-        yellow = materialmodule.findMaterialByName('yellow')
+        bone = materialmodule.findMaterialByName('bone')
 #         self._selection_graphics = self._createPointGraphics(scene, coordinate_field, yellow, None) # self._model.getSelectionGroupField())
 #         self._node_graphics = self._createPointGraphics(scene, coordinate_field, red, None) # self._model.getNodeGroupField())
-        self._mesh_surface_graphics = self._createSurfaceGraphics(scene, coordinate_field, yellow, visibility_field)
-        self._mesh_contour_graphics = self._createContourGraphics(scene, coordinate_field, yellow, iso_scalar_field)
+        self._mesh_surface_graphics = self._createSurfaceGraphics(scene, coordinate_field, bone, visibility_field)
+        self._mesh_contour_graphics = self._createContourGraphics(scene, coordinate_field, bone, iso_scalar_field)
 
     def _createSurfaceGraphics(self, scene, finite_element_field, material, subgroup_field):
         scene.beginChange()

@@ -141,4 +141,4 @@ class Ui_HoofMeasurementWidget(object):
         self.groupBox_2.setTitle(QtGui.QApplication.translate("HoofMeasurementWidget", "Plane", None, QtGui.QApplication.UnicodeUTF8))
         self.labelAngle.setText(QtGui.QApplication.translate("HoofMeasurementWidget", "Angle:", None, QtGui.QApplication.UnicodeUTF8))
 
-from zinchoofmeasurementwidget import ZincHoofMeasurementWidget
+from mapclientplugins.hoofmeasurementstep.view.zinchoofmeasurementwidget import ZincHoofMeasurementWidget
