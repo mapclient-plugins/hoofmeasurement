@@ -65,4 +65,4 @@ target/
 .idea/
 
 # OS X
-._DS_STORE
+.DS_Store
