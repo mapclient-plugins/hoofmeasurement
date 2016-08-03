@@ -4,7 +4,7 @@ import sys, os
 # The dependencies variable is used by MAP Client to
 # determine if further downloads are required.  Please
 # list all dependencies here.
-dependencies = [] # Insert plugin dependencies here
+requires = [meshparser] # Insert plugin dependencies here
 
 setup(name=u'mapclientplugins.hoofmeasurementstep',
       version='0.0',
@@ -19,5 +19,5 @@ setup(name=u'mapclientplugins.hoofmeasurementstep',
       namespace_packages=['mapclientplugins'],
       include_package_data=True,
       zip_safe=False,
-      install_requires=dependencies,
+      install_requires=requires,
       )
