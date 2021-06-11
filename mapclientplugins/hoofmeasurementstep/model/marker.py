@@ -8,11 +8,11 @@ from opencmiss.zinc.field import Field
 
 from mapclientplugins.hoofmeasurementstep.utils.zinc import createFiniteElementField
 
+
 class MarkerModel(object):
     '''
     classdocs
     '''
-
 
     def __init__(self, parent, region):
         '''
@@ -29,12 +29,12 @@ class MarkerModel(object):
         fieldcache.setNode(node)
         result, location = self._coordinate_field.evaluateReal(fieldcache, 3)
         fieldmodule.endChange()
-        
+
         if result == OK:
             return location
-        
+
         return None
-    
+
     def getNodeAngle(self, node):
         fieldmodule = self._region.getFieldmodule()
         fieldcache = fieldmodule.createFieldcache()
@@ -42,21 +42,21 @@ class MarkerModel(object):
         fieldcache.setNode(node)
         result, angle = self._angle_field.evaluateReal(fieldcache, 1)
         fieldmodule.endChange()
-        
+
         if result == OK:
             return angle
-        
+
         return None
-    
+
     def getPlaneDescription(self):
         return self._parent.getPlaneDescription()
-    
+
     def getCoordinateField(self):
         return self._coordinate_field
-    
+
     def getRegion(self):
         return self._region
-    
+
     def getLandmarks(self):
         lm = {}
         fieldmodule = self._region.getFieldmodule()
@@ -76,11 +76,11 @@ class MarkerModel(object):
 
             lm[str(node.getIdentifier())] = {'pos': location, 'angle': angle}
             node = ni.next()
-            
+
         fieldmodule.endChange()
         lm['locations'] = locations
         return lm
-        
+
     def setNodeLocation(self, node, location):
         fieldmodule = self._region.getFieldmodule()
         fieldcache = fieldmodule.createFieldcache()
@@ -88,24 +88,24 @@ class MarkerModel(object):
         fieldcache.setNode(node)
         self._coordinate_field.assignReal(fieldcache, location)
         fieldmodule.endChange()
-        
+
     def setNodeAngle(self, node, angle):
         fieldmodule = self._region.getFieldmodule()
         fieldcache = fieldmodule.createFieldcache()
         fieldmodule.beginChange()
         fieldcache.setNode(node)
         self._angle_field.assignReal(fieldcache, angle)
-        fieldmodule.endChange()        
-       
+        fieldmodule.endChange()
+
     def setSelected(self, node):
         self._selection_group.addNode(node)
-        
+
     def clearSelected(self):
         self._selection_group_field.clear()
-        
+
     def removeSelected(self):
         self._selection_group.destroyAllNodes()
-    
+
     def createNode(self):
         '''
         Create a node with the models coordinate field.
@@ -146,6 +146,3 @@ class MarkerModel(object):
         self._selection_group_field = fieldmodule.createFieldGroup()
         node_group = self._selection_group_field.createFieldNodeGroup(nodeset)
         self._selection_group = node_group.getNodesetGroup()
- 
-
-

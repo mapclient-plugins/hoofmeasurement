@@ -3,8 +3,9 @@ Created on Jun 23, 2015
 
 @author: hsorby
 '''
-from mapclientplugins.hoofmeasurementstep.utils.vectorops import sub, dot,\
+from mapclientplugins.hoofmeasurementstep.utils.vectorops import sub, dot, \
     add, mult
+
 
 def calculateLinePlaneIntersection(pt1, pt2, point_on_plane, plane_normal):
     line_direction = sub(pt2, pt1)
@@ -14,4 +15,3 @@ def calculateLinePlaneIntersection(pt1, pt2, point_on_plane, plane_normal):
         return intersection_point
 
     return None
-
