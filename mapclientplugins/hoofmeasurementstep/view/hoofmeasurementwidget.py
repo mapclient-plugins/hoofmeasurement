@@ -3,7 +3,7 @@ Created on Jun 18, 2015
 
 @author: hsorby
 '''
-from PySide import QtGui
+from PySide2 import QtGui, QtWidgets
 
 from mapclientplugins.hoofmeasurementstep.view.ui_hoofmeasurementwidget import Ui_HoofMeasurementWidget
 from mapclientplugins.hoofmeasurementstep.scene.hoofmeasurementscene import HoofMeasurementScene
@@ -11,7 +11,7 @@ from mapclientplugins.hoofmeasurementstep.scene.hoofmeasurementscene import Hoof
 ANGLE_RANGE = 50
 
 
-class HoofMeasurementWidget(QtGui.QWidget):
+class HoofMeasurementWidget(QtWidgets.QWidget):
     '''
     classdocs
     '''

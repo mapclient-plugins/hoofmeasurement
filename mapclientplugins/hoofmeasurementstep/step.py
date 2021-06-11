@@ -4,7 +4,7 @@ MAP Client Plugin Step
 '''
 import json, os
 
-from PySide import QtGui
+from PySide2 import QtGui
 
 from mapclient.mountpoints.workflowstep import WorkflowStepMountPoint
 
@@ -24,7 +24,7 @@ class HoofMeasurementStep(WorkflowStepMountPoint):
         self._configured = False # A step cannot be executed until it has been configured.
         self._category = 'Morphometric'
         # Add any other initialisation code here:
-        self._icon =  QtGui.QImage(':/hoofmeasurementstep/images/morphometric.png')
+        self._icon = QtGui.QImage(':/hoofmeasurementstep/images/morphometric.png')
         # Ports:
         self.addPort(('http://physiomeproject.org/workflow/1.0/rdf-schema#port',
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#provides',

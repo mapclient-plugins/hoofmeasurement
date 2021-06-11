@@ -3,7 +3,7 @@ Created on Jun 18, 2015
 
 @author: hsorby
 '''
-from PySide import QtCore
+from PySide2 import QtCore
 
 from opencmiss.zincwidgets.sceneviewerwidget import SceneviewerWidget
 
