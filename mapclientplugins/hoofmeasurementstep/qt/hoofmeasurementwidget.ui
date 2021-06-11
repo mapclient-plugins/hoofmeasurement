@@ -278,7 +278,7 @@
   <customwidget>
    <class>ZincHoofMeasurementWidget</class>
    <extends>QWidget</extends>
-   <header>zinchoofmeasurementwidget.h</header>
+   <header>mapclientplugins/hoofmeasurementstep/view/zinchoofmeasurementwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

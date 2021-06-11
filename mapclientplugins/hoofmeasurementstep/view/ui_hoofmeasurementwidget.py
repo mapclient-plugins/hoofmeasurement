@@ -12,7 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-from zinchoofmeasurementwidget import ZincHoofMeasurementWidget
+from mapclientplugins.hoofmeasurementstep.view.zinchoofmeasurementwidget import ZincHoofMeasurementWidget
 
 
 class Ui_HoofMeasurementWidget(object):
