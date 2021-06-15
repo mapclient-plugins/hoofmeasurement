@@ -25,27 +25,35 @@ A collection of functions that operate on python lists as if
 they were vectors.
 '''
 
+
 def magnitude(v):
     return sqrt(sum(v[i] * v[i] for i in range(len(v))))
 
+
 def add(u, v):
-    return [ u[i] + v[i] for i in range(len(u)) ]
+    return [u[i] + v[i] for i in range(len(u))]
+
 
 def sub(u, v):
-    return [ u[i] - v[i] for i in range(len(u)) ]
+    return [u[i] - v[i] for i in range(len(u))]
+
 
 def dot(u, v):
     return sum(u[i] * v[i] for i in range(len(u)))
 
+
 def eldiv(u, v):
     return [u[i] / v[i] for i in range(len(u))]
+
 
 def elmult(u, v):
     return [u[i] * v[i] for i in range(len(u))]
 
+
 def normalize(v):
     vmag = magnitude(v)
-    return [ v[i] / vmag  for i in range(len(v)) ]
+    return [v[i] / vmag for i in range(len(v))]
+
 
 def cross(u, v):
     c = [u[1] * v[2] - u[2] * v[1],
@@ -54,11 +62,14 @@ def cross(u, v):
 
     return c
 
+
 def mult(u, c):
     return [u[i] * c for i in range(len(u))]
 
+
 def div(u, c):
     return [u[i] / c for i in range(len(u))]
+
 
 def rotmx(quaternion):
     '''
@@ -74,9 +85,10 @@ def rotmx(quaternion):
 
     return mx
 
+
 def mxmult(mx, u):
     return []
 
+
 def matmult(a, b):
     return [dot(row_a, b) for row_a in a]
-

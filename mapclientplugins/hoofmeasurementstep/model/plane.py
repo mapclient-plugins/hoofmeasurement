@@ -5,6 +5,7 @@ Created on Jun 22, 2015
 '''
 import json
 
+
 class Plane(object):
 
     def __init__(self, fieldmodule):
@@ -70,7 +71,6 @@ class Plane(object):
 
 
 class PlaneAttitude(object):
-
     prec = 12
 
     def __init__(self, point, normal):
@@ -103,5 +103,3 @@ class PlaneAttitude(object):
 
     def __ne__(self, other):
         return hash(self) != hash(other)
-
-

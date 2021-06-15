@@ -3,17 +3,17 @@ Created on Jun 18, 2015
 
 @author: hsorby
 '''
-from PySide import QtCore
+from PySide2 import QtCore
 
 from opencmiss.zincwidgets.sceneviewerwidget import SceneviewerWidget
 
 from mapclientplugins.hoofmeasurementstep.utils.algorithms import calculateLinePlaneIntersection
 
+
 class ZincHoofMeasurementWidget(SceneviewerWidget):
     '''
     classdocs
     '''
-
 
     def __init__(self, parent=None):
         '''
@@ -23,22 +23,22 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
         self._model = None
         self._active_button = QtCore.Qt.NoButton
         self._plane_angle = None
-        
+
     def setModel(self, model):
         self._model = model
-        
+
     def setPlaneAngle(self, value):
         self._plane_angle = value
 
     def deleteSelectedNodes(self):
         self._model.removeSelected()
-        
+
     def mousePressEvent(self, event):
         if self._active_button != QtCore.Qt.NoButton:
             return
 
         self._active_button = event.button()
-        
+
         self._handle_mouse_events = False
         self._active_plane = None
         self._active_node = None
@@ -67,7 +67,7 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
         if self._active_node is not None:
             point_on_plane = self._calculatePointOnPlane(event.x(), event.y())
             if point_on_plane is not None:
-#                 node_model = self._model.getNodeModel()
+                #                 node_model = self._model.getNodeModel()
                 self._model.setNodeLocation(self._active_node, point_on_plane)
         else:
             super(ZincHoofMeasurementWidget, self).mouseMoveEvent(event)
@@ -89,6 +89,5 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
         far_plane_point = self.unproject(x, -y, -1.0)
         near_plane_point = self.unproject(x, -y, 1.0)
         point_on_plane = calculateLinePlaneIntersection(near_plane_point, far_plane_point, plane_point, plane_normal)
-        
+
         return point_on_plane
-    

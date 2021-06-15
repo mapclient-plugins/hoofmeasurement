@@ -5,6 +5,7 @@ Created on May 21, 2015
 '''
 from opencmiss.zinc.element import Element, Elementbasis
 
+
 def createFiniteElementField(region):
     '''
     Create a finite element field of three dimensions
@@ -26,6 +27,7 @@ def createFiniteElementField(region):
 
     return finite_element_field
 
+
 def createNodes(finite_element_field, node_coordinate_set):
     """
     Create a node for every coordinate in the node_coordinate_set.
@@ -34,7 +36,7 @@ def createNodes(finite_element_field, node_coordinate_set):
     # Find a special node set named 'nodes'
     nodeset = fieldmodule.findNodesetByName('nodes')
     node_template = nodeset.createNodetemplate()
-    
+
     # Set the finite element coordinate field for the nodes to use
     node_template.defineField(finite_element_field)
     field_cache = fieldmodule.createFieldcache()
@@ -44,6 +46,7 @@ def createNodes(finite_element_field, node_coordinate_set):
         field_cache.setNode(node)
         # Pass in floats as an array
         finite_element_field.assignReal(field_cache, node_coordinate)
+
 
 def createElements(finite_element_field, element_node_set):
     """
@@ -61,7 +64,6 @@ def createElements(finite_element_field, element_node_set):
     # the indecies of the nodes in the node template we want to use.
     node_indexes = [1, 2, 3]
 
-
     # Define a nodally interpolated element field or field component in the
     # element_template
     element_template.defineFieldSimpleNodal(finite_element_field, -1, linear_basis, node_indexes)
@@ -72,9 +74,11 @@ def createElements(finite_element_field, element_node_set):
             element_template.setNode(i + 1, node)
 
         mesh.defineElement(-1, element_template)
+
+
 #     fieldmodule.defineAllFaces()
 
-    
+
 def createSquare2DFiniteElement(fieldmodule, finite_element_field, node_coordinate_set):
     '''
     Create a single finite element using the supplied 
@@ -108,7 +112,6 @@ def createSquare2DFiniteElement(fieldmodule, finite_element_field, node_coordina
     linear_basis = fieldmodule.createElementbasis(2, Elementbasis.FUNCTION_TYPE_LINEAR_LAGRANGE)
     # the indecies of the nodes in the node template we want to use.
     node_indexes = [1, 2, 3, 4]
-
 
     # Define a nodally interpolated element field or field component in the
     # element_template
@@ -156,7 +159,6 @@ def createCubeFiniteElement(fieldmodule, finite_element_field, node_coordinate_s
     # the indecies of the nodes in the node template we want to use.
     node_indexes = [1, 2, 3, 4, 5, 6, 7, 8]
 
-
     # Define a nodally interpolated element field or field component in the
     # element_template
     element_template.defineFieldSimpleNodal(finite_element_field, -1, linear_basis, node_indexes)
@@ -177,7 +179,7 @@ def _createPlaneEquationFormulation(fieldmodule, finite_element_field, plane_nor
     iso_scalar_field = fieldmodule.createFieldDotProduct(finite_element_field, plane_normal_field) - d
 
     return iso_scalar_field
-    
+
 
 def createPlaneVisibilityField(fieldmodule, finite_element_field, plane_normal_field, point_on_plane_field):
     """
@@ -186,20 +188,19 @@ def createPlaneVisibilityField(fieldmodule, finite_element_field, plane_normal_f
     d = fieldmodule.createFieldSubtract(finite_element_field, point_on_plane_field)
     p = fieldmodule.createFieldDotProduct(d, plane_normal_field)
     t = fieldmodule.createFieldConstant(0.1)
-    
+
     v = fieldmodule.createFieldLessThan(p, t)
 
     return v
-    
+
 
 def createIsoScalarField(region, coordinate_field, plane):
     fieldmodule = region.getFieldmodule()
     fieldmodule.beginChange()
     normal_field = plane.getNormalField()
     rotation_point_field = plane.getRotationPointField()
-    iso_scalar_field = _createPlaneEquationFormulation(fieldmodule, coordinate_field, normal_field, rotation_point_field)
+    iso_scalar_field = _createPlaneEquationFormulation(fieldmodule, coordinate_field, normal_field,
+                                                       rotation_point_field)
     fieldmodule.endChange()
-    
+
     return iso_scalar_field
-
-

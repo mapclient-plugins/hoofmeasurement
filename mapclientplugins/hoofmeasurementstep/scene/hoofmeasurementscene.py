@@ -9,11 +9,11 @@ from opencmiss.zinc.glyph import Glyph
 from mapclientplugins.hoofmeasurementstep.scene.detection import DetectionScene
 from mapclientplugins.hoofmeasurementstep.scene.marker import MarkerScene
 
+
 class HoofMeasurementScene(object):
     '''
     classdocs
     '''
-
 
     def __init__(self, model):
         '''
@@ -23,7 +23,7 @@ class HoofMeasurementScene(object):
         self._detection_scene = DetectionScene(model.getDetectionModel())
         self._marker_scene = MarkerScene(model.getMarkerModel())
         self._setupVisualisation()
-        
+
     def _setupVisualisation(self):
         coordinate_field = self._model.getCoordinateField()
         visibility_field = self._model.getVisibilityField()
@@ -31,10 +31,10 @@ class HoofMeasurementScene(object):
         region = self._model.getRegion()
         scene = region.getScene()
         materialmodule = scene.getMaterialmodule()
-#         blue = materialmodule.findMaterialByName('blue')
+        #         blue = materialmodule.findMaterialByName('blue')
         bone = materialmodule.findMaterialByName('bone')
-#         self._selection_graphics = self._createPointGraphics(scene, coordinate_field, yellow, None) # self._model.getSelectionGroupField())
-#         self._node_graphics = self._createPointGraphics(scene, coordinate_field, red, None) # self._model.getNodeGroupField())
+        #         self._selection_graphics = self._createPointGraphics(scene, coordinate_field, yellow, None) # self._model.getSelectionGroupField())
+        #         self._node_graphics = self._createPointGraphics(scene, coordinate_field, red, None) # self._model.getNodeGroupField())
         self._mesh_surface_graphics = self._createSurfaceGraphics(scene, coordinate_field, bone, visibility_field)
         self._mesh_contour_graphics = self._createContourGraphics(scene, coordinate_field, bone, iso_scalar_field)
 
@@ -74,12 +74,12 @@ class HoofMeasurementScene(object):
         graphic.setCoordinateField(finite_element_field)
         graphic.setMaterial(material)
         graphic.setSelectedMaterial(material)
-#         graphic.setSubgroupField(subgroup_field)
+        #         graphic.setSubgroupField(subgroup_field)
         attributes = graphic.getGraphicspointattributes()
         attributes.setGlyphShapeType(Glyph.SHAPE_TYPE_SPHERE)
         attributes.setBaseSize([1.0])
-#         surface = scene.createGraphicsSurfaces()
-#         surface.setCoordinateField(finite_element_field)
+        #         surface = scene.createGraphicsSurfaces()
+        #         surface.setCoordinateField(finite_element_field)
         scene.endChange()
 
         return graphic
