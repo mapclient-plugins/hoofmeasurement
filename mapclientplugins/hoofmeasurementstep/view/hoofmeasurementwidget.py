@@ -3,7 +3,7 @@ Created on Jun 18, 2015
 
 @author: hsorby
 '''
-from PySide2 import QtGui, QtWidgets
+from PySide6 import QtGui, QtWidgets
 
 from mapclientplugins.hoofmeasurementstep.view.ui_hoofmeasurementwidget import Ui_HoofMeasurementWidget
 from mapclientplugins.hoofmeasurementstep.scene.hoofmeasurementscene import HoofMeasurementScene
