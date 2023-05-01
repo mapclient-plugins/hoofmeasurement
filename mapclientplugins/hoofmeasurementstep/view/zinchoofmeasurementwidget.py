@@ -5,7 +5,7 @@ Created on Jun 18, 2015
 '''
 from PySide6 import QtCore
 
-from opencmiss.zincwidgets.sceneviewerwidget import SceneviewerWidget
+from cmlibs.widgets.sceneviewerwidget import SceneviewerWidget
 
 from mapclientplugins.hoofmeasurementstep.utils.algorithms import calculateLinePlaneIntersection
 

@@ -3,8 +3,8 @@ Created on Jun 23, 2015
 
 @author: hsorby
 '''
-from opencmiss.zinc.status import OK
-from opencmiss.zinc.field import Field
+from cmlibs.zinc.status import OK
+from cmlibs.zinc.field import Field
 
 from mapclientplugins.hoofmeasurementstep.utils.zinc import createFiniteElementField
 

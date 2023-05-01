@@ -5,7 +5,7 @@ Created on Jun 18, 2015
 '''
 from math import cos, sin, pi
 
-from opencmiss.zinc.context import Context
+from cmlibs.zinc.context import Context
 
 from meshparser.vrmlparser.parser import VRMLParser
 
