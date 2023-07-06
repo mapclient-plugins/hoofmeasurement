@@ -144,5 +144,4 @@ class MarkerModel(object):
 
         # Setup the selection fields
         self._selection_group_field = fieldmodule.createFieldGroup()
-        node_group = self._selection_group_field.createFieldNodeGroup(nodeset)
-        self._selection_group = node_group.getNodesetGroup()
+        self._selection_group = self._selection_group_field.createNodesetGroup(nodeset)
