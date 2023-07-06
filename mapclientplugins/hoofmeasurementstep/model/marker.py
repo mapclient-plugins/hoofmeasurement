@@ -5,8 +5,7 @@ Created on Jun 23, 2015
 '''
 from cmlibs.zinc.status import OK
 from cmlibs.zinc.field import Field
-
-from mapclientplugins.hoofmeasurementstep.utils.zinc import createFiniteElementField
+from cmlibs.utils.zinc.field import create_field_coordinates
 
 
 class MarkerModel(object):
@@ -136,9 +135,8 @@ class MarkerModel(object):
         return self._selection_group_field
 
     def _setupRegion(self, region):
-        self._coordinate_field = createFiniteElementField(region)
-
         fieldmodule = region.getFieldmodule()
+        self._coordinate_field = create_field_coordinates(fieldmodule, managed=True)
         self._angle_field = fieldmodule.createFieldFiniteElement(1)
         nodeset = fieldmodule.findNodesetByName('nodes')
 

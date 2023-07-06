@@ -3,8 +3,9 @@ Created on Jun 22, 2015
 
 @author: hsorby
 '''
-from mapclientplugins.hoofmeasurementstep.utils.zinc import createFiniteElementField, \
-    createIsoScalarField, createCubeFiniteElement, createPlaneVisibilityField
+from cmlibs.utils.zinc.field import create_field_coordinates, create_field_iso_scalar_for_plane, create_field_plane_visibility
+from cmlibs.utils.zinc.finiteelement import create_cube_element
+
 from mapclientplugins.hoofmeasurementstep.model.plane import Plane
 
 
@@ -19,9 +20,9 @@ class DetectionModel(object):
         '''
         self._parent = parent
         self._region = region
-        self._coordinate_field = createFiniteElementField(region)
+        self._coordinate_field = create_field_coordinates(region.getFieldmodule(), managed=True)
         self._plane = self._setupDetectionPlane(region, self._coordinate_field)
-        self._iso_scalar_field = createIsoScalarField(region, self._coordinate_field, self._plane)
+        self._iso_scalar_field = create_field_iso_scalar_for_plane(region.getFieldmodule(), self._coordinate_field, self._plane)
         self._visibility_field = _createVisibilityField(region, self._coordinate_field, self._plane)
         self._extents = NameError
 
@@ -39,9 +40,8 @@ class DetectionModel(object):
         fieldmodule.beginChange()
 
         plane = Plane(fieldmodule)
-        createCubeFiniteElement(fieldmodule, coordinate_field,
-                                [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, 1, 0], [0, 0, 1], [0, 1, 1], [1, 0, 1],
-                                 [1, 1, 1]])
+        create_cube_element(fieldmodule.findMeshByDimension(3), coordinate_field,
+                            [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, 1, 0], [0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
 
         fieldmodule.endChange()
 
@@ -98,7 +98,7 @@ def _createVisibilityField(region, coordinate_field, plane):
     fieldmodule.beginChange()
     normal_field = plane.getNormalField()
     rotation_point_field = plane.getRotationPointField()
-    visibility_field = createPlaneVisibilityField(fieldmodule, coordinate_field, normal_field, rotation_point_field)
+    visibility_field = create_field_plane_visibility(fieldmodule, coordinate_field, normal_field, rotation_point_field)
     fieldmodule.endChange()
 
     return visibility_field

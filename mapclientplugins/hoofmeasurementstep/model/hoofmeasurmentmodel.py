@@ -6,16 +6,14 @@ Created on Jun 18, 2015
 from math import cos, sin, pi
 
 from cmlibs.zinc.context import Context
+from cmlibs.utils.zinc.field import create_field_coordinates, create_field_iso_scalar_for_plane, create_field_plane_visibility
+from cmlibs.utils.zinc.finiteelement import create_nodes, create_triangle_elements
 
 from meshparser.vrmlparser.parser import VRMLParser
 
-from mapclientplugins.hoofmeasurementstep.utils.zinc import \
-    createNodes, createElements, createFiniteElementField, \
-    createPlaneVisibilityField, createIsoScalarField
 from mapclientplugins.hoofmeasurementstep.model.detection import DetectionModel
 from mapclientplugins.hoofmeasurementstep.model.plane import Plane
-from mapclientplugins.hoofmeasurementstep.utils.vectorops import sub, \
-    cross, normalize, matmult
+from mapclientplugins.hoofmeasurementstep.utils.vectorops import sub, cross, normalize, matmult
 from mapclientplugins.hoofmeasurementstep.model.marker import MarkerModel
 
 
@@ -36,13 +34,14 @@ class HoofMeasurementModel(object):
         self.defineStandardGlyphs()
         # First create coordinate field
         region = self._context.getDefaultRegion()
-        self._coordinate_field = createFiniteElementField(region)
+        field_module = region.getFieldmodule()
+        self._coordinate_field = create_field_coordinates(field_module, managed=True)
         detection_region = self._context.getDefaultRegion().createChild('detection')
         self._detection_model = DetectionModel(self, detection_region)
         marker_region = self._context.getDefaultRegion().createChild('marker')
         self._marker_model = MarkerModel(self, marker_region)
         self._plane = self._setupDetectionPlane(region, self._coordinate_field)
-        self._iso_scalar_field = createIsoScalarField(region, self._coordinate_field, self._plane)
+        self._iso_scalar_field = create_field_iso_scalar_for_plane(field_module, self._coordinate_field, self._plane)
         self._visibility_field = _createVisibilityField(region, self._coordinate_field, self._plane)
         self._selection_filter = self._createSelectionFilter()
 
@@ -142,12 +141,14 @@ class HoofMeasurementModel(object):
         The nodes are given as a list of coordinates and the elements
         are given as a list of indexes into the node list..
         """
-        # First create all the required nodes
-        createNodes(self._coordinate_field, self._nodes)
-        # then define elements using a list of node indexes
-        createElements(self._coordinate_field, self._elements)
-        # Define all faces also
         fieldmodule = self._coordinate_field.getFieldmodule()
+
+        # First create all the required nodes
+        create_nodes(self._coordinate_field, self._nodes)
+        # then define elements using a list of node indexes
+        mesh = fieldmodule.findMeshByDimension(2)
+        create_triangle_elements(mesh, self._coordinate_field, self._elements)
+        # Define all faces also
         fieldmodule.defineAllFaces()
 
     def _createSelectionFilter(self):
@@ -237,7 +238,7 @@ def _createVisibilityField(region, coordinate_field, plane):
     fieldmodule.beginChange()
     normal_field = plane.getNormalField()
     rotation_point_field = plane.getRotationPointField()
-    visibility_field = createPlaneVisibilityField(fieldmodule, coordinate_field, normal_field, rotation_point_field)
+    visibility_field = create_field_plane_visibility(fieldmodule, coordinate_field, normal_field, rotation_point_field)
     fieldmodule.endChange()
 
     return visibility_field
