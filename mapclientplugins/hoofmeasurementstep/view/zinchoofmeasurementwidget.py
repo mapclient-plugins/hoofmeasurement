@@ -5,12 +5,12 @@ Created on Jun 18, 2015
 '''
 from PySide6 import QtCore
 
-from cmlibs.widgets.sceneviewerwidget import SceneviewerWidget
+from cmlibs.widgets.basesceneviewerwidget import BaseSceneviewerWidget
 
 from mapclientplugins.hoofmeasurementstep.utils.algorithms import calculateLinePlaneIntersection
 
 
-class ZincHoofMeasurementWidget(SceneviewerWidget):
+class ZincHoofMeasurementWidget(BaseSceneviewerWidget):
     '''
     classdocs
     '''
@@ -44,9 +44,9 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
         self._active_node = None
 
         if (event.modifiers() & QtCore.Qt.KeyboardModifier.ControlModifier) and event.button() == QtCore.Qt.MouseButton.LeftButton:
-            node_graphic = self.getNearestGraphicsNode(event.x(), event.y())
-            nearest_graphics = self.getNearestGraphics()
-            if node_graphic is None and nearest_graphics.isValid():
+            node_graphic = self.get_nearest_graphics_node(event.x(), event.y())
+            nearest_graphics = self.get_nearest_graphics()
+            if not node_graphic.isValid() and nearest_graphics.isValid():
                 point_on_plane = self._calculatePointOnPlane(event.x(), event.y())
                 if point_on_plane is not None:
                     self._model.clearSelected()
@@ -56,7 +56,7 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
                     self._active_node = node
             elif node_graphic is not None and node_graphic == nearest_graphics:
                 self._model.clearSelected()
-                node = self.getNearestNode(event.x(), event.y())
+                node = self.get_nearest_node(event.x(), event.y())
                 self._model.setSelected(node)
                 self._model.setNodeAngle(node, self._plane_angle)
                 self._active_node = node
@@ -68,7 +68,6 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
         if self._active_node is not None:
             point_on_plane = self._calculatePointOnPlane(event.x(), event.y())
             if point_on_plane is not None:
-                #                 node_model = self._model.getNodeModel()
                 self._model.setNodeLocation(self._active_node, point_on_plane)
         else:
             super(ZincHoofMeasurementWidget, self).mouseMoveEvent(event)

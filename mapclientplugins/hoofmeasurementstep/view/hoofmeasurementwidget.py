@@ -41,10 +41,9 @@ class HoofMeasurementWidget(QtWidgets.QWidget):
         self._model = model
         self._scene = HoofMeasurementScene(model)
 
-        self._ui.widgetZinc.setContext(model.getContext())
+        self._ui.widgetZinc.set_context(model.getContext())
         self._ui.widgetZinc.setModel(model.getMarkerModel())
         self._ui.widgetZinc.setPlaneAngle(angle_initial_value)
-        #         self._ui.widgetZinc.setSelectionfilter(model.getSelectionfilter())
 
         self._makeConnections()
 
@@ -52,7 +51,7 @@ class HoofMeasurementWidget(QtWidgets.QWidget):
         self._ui.pushButtonContinue.clicked.connect(self._continueExecution)
         self._ui.pushButtonViewAll.clicked.connect(self._viewAllButtonClicked)
         self._ui.horizontalSliderAngle.valueChanged.connect(self._angleSliderValueChanged)
-        self._ui.widgetZinc.graphicsInitialized.connect(self._zincWidgetReady)
+        self._ui.widgetZinc.graphics_initialized.connect(self._zincWidgetReady)
         self._ui.pushButtonDeleteNode.clicked.connect(self._ui.widgetZinc.deleteSelectedNodes)
         self._ui.lineEditAngle.returnPressed.connect(self._angleLineEditTextEditFinished)
 
@@ -69,7 +68,7 @@ class HoofMeasurementWidget(QtWidgets.QWidget):
         self._callback = done_exectution
 
     def _zincWidgetReady(self):
-        self._ui.widgetZinc.setSelectionfilter(self._model.getSelectionfilter())
+        self._ui.widgetZinc.set_selection_filter(self._model.getSelectionfilter())
 
     def _viewAllButtonClicked(self):
         self._ui.widgetZinc.viewAll()
