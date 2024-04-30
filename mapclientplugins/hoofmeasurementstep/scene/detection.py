@@ -1,21 +1,21 @@
-'''
+"""
 Created on Jun 22, 2015
 
 @author: hsorby
-'''
+"""
 from cmlibs.zinc.field import Field
 from cmlibs.zinc.glyph import Glyph
 
 
 class DetectionScene(object):
-    '''
+    """
     classdocs
-    '''
+    """
 
     def __init__(self, model):
-        '''
+        """
         Constructor
-        '''
+        """
         self._model = model
         self._setupVisualisation()
 

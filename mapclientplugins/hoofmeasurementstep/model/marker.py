@@ -1,22 +1,22 @@
-'''
+"""
 Created on Jun 23, 2015
 
 @author: hsorby
-'''
+"""
 from cmlibs.zinc.status import OK
 from cmlibs.zinc.field import Field
 from cmlibs.utils.zinc.field import create_field_coordinates
 
 
 class MarkerModel(object):
-    '''
+    """
     classdocs
-    '''
+    """
 
     def __init__(self, parent, region):
-        '''
+        """
         Constructor
-        '''
+        """
         self._parent = parent
         self._region = region
         self._setupRegion(region)
@@ -106,9 +106,9 @@ class MarkerModel(object):
         self._selection_group.destroyAllNodes()
 
     def createNode(self):
-        '''
+        """
         Create a node with the models coordinate field.
-        '''
+        """
         fieldmodule = self._region.getFieldmodule()
         fieldmodule.beginChange()
 

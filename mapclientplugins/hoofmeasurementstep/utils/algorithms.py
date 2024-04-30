@@ -1,8 +1,8 @@
-'''
+"""
 Created on Jun 23, 2015
 
 @author: hsorby
-'''
+"""
 from mapclientplugins.hoofmeasurementstep.utils.vectorops import sub, dot, \
     add, mult
 

@@ -1,27 +1,27 @@
-'''
+"""
 Created on Jun 18, 2015
 
 @author: hsorby
-'''
+"""
 from PySide6 import QtCore
 
-from cmlibs.widgets.sceneviewerwidget import SceneviewerWidget
+from cmlibs.widgets.basesceneviewerwidget import BaseSceneviewerWidget
 
 from mapclientplugins.hoofmeasurementstep.utils.algorithms import calculateLinePlaneIntersection
 
 
-class ZincHoofMeasurementWidget(SceneviewerWidget):
-    '''
+class ZincHoofMeasurementWidget(BaseSceneviewerWidget):
+    """
     classdocs
-    '''
+    """
 
     def __init__(self, parent=None):
-        '''
+        """
         Constructor
-        '''
+        """
         super(ZincHoofMeasurementWidget, self).__init__(parent)
         self._model = None
-        self._active_button = QtCore.Qt.NoButton
+        self._active_button = QtCore.Qt.MouseButton.NoButton
         self._plane_angle = None
 
     def setModel(self, model):
@@ -34,7 +34,7 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
         self._model.removeSelected()
 
     def mousePressEvent(self, event):
-        if self._active_button != QtCore.Qt.NoButton:
+        if self._active_button != QtCore.Qt.MouseButton.NoButton:
             return
 
         self._active_button = event.button()
@@ -42,10 +42,11 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
         self._handle_mouse_events = False
         self._active_plane = None
         self._active_node = None
-        if (event.modifiers() & QtCore.Qt.CTRL) and event.button() == QtCore.Qt.LeftButton:
-            node_graphic = self.getNearestGraphicsNode(event.x(), event.y())
-            nearest_graphics = self.getNearestGraphics()
-            if node_graphic is None and nearest_graphics.isValid():
+
+        if (event.modifiers() & QtCore.Qt.KeyboardModifier.ControlModifier) and event.button() == QtCore.Qt.MouseButton.LeftButton:
+            node_graphic = self.get_nearest_graphics_node(event.x(), event.y())
+            nearest_graphics = self.get_nearest_graphics()
+            if not node_graphic.isValid() and nearest_graphics.isValid():
                 point_on_plane = self._calculatePointOnPlane(event.x(), event.y())
                 if point_on_plane is not None:
                     self._model.clearSelected()
@@ -55,7 +56,7 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
                     self._active_node = node
             elif node_graphic is not None and node_graphic == nearest_graphics:
                 self._model.clearSelected()
-                node = self.getNearestNode(event.x(), event.y())
+                node = self.get_nearest_node(event.x(), event.y())
                 self._model.setSelected(node)
                 self._model.setNodeAngle(node, self._plane_angle)
                 self._active_node = node
@@ -67,7 +68,6 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
         if self._active_node is not None:
             point_on_plane = self._calculatePointOnPlane(event.x(), event.y())
             if point_on_plane is not None:
-                #                 node_model = self._model.getNodeModel()
                 self._model.setNodeLocation(self._active_node, point_on_plane)
         else:
             super(ZincHoofMeasurementWidget, self).mouseMoveEvent(event)
@@ -82,7 +82,7 @@ class ZincHoofMeasurementWidget(SceneviewerWidget):
         else:
             super(ZincHoofMeasurementWidget, self).mouseReleaseEvent(event)
 
-        self._active_button = QtCore.Qt.NoButton
+        self._active_button = QtCore.Qt.MouseButton.NoButton
 
     def _calculatePointOnPlane(self, x, y, plane_description=None):
         plane_normal, plane_point = self._model.getPlaneDescription()
