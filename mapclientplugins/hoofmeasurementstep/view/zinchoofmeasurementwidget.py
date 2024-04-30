@@ -1,8 +1,8 @@
-'''
+"""
 Created on Jun 18, 2015
 
 @author: hsorby
-'''
+"""
 from PySide6 import QtCore
 
 from cmlibs.widgets.basesceneviewerwidget import BaseSceneviewerWidget
@@ -11,14 +11,14 @@ from mapclientplugins.hoofmeasurementstep.utils.algorithms import calculateLineP
 
 
 class ZincHoofMeasurementWidget(BaseSceneviewerWidget):
-    '''
+    """
     classdocs
-    '''
+    """
 
     def __init__(self, parent=None):
-        '''
+        """
         Constructor
-        '''
+        """
         super(ZincHoofMeasurementWidget, self).__init__(parent)
         self._model = None
         self._active_button = QtCore.Qt.MouseButton.NoButton

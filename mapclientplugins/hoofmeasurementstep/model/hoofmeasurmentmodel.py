@@ -1,8 +1,8 @@
-'''
+"""
 Created on Jun 18, 2015
 
 @author: hsorby
-'''
+"""
 from math import cos, sin, pi
 
 from cmlibs.zinc.context import Context
@@ -18,14 +18,14 @@ from mapclientplugins.hoofmeasurementstep.model.marker import MarkerModel
 
 
 class HoofMeasurementModel(object):
-    '''
+    """
     classdocs
-    '''
+    """
 
     def __init__(self):
-        '''
+        """
         Constructor
-        '''
+        """
         self._coordinate_description = None
         self._file_location = None
         self._location = None
@@ -117,15 +117,15 @@ class HoofMeasurementModel(object):
         return self._marker_model.getLandmarks()
 
     def _setupDetectionPlane(self, region, coordinate_field):
-        '''
-        Adds a single finite element to the region and keeps a handle to the 
+        """
+        Adds a single finite element to the region and keeps a handle to the
         fields created for the finite element in the following attributes(
         self-documenting names):
             '_coordinate_field'
             '_scale_field'
             '_scaled_coordinate_field'
             '_iso_scalar_field'
-        '''
+        """
         fieldmodule = region.getFieldmodule()
         fieldmodule.beginChange()
 
@@ -161,16 +161,16 @@ class HoofMeasurementModel(object):
         return o
 
     def defineStandardGlyphs(self):
-        '''
+        """
         Helper method to define the standard glyphs
-        '''
+        """
         glyph_module = self._context.getGlyphmodule()
         glyph_module.defineStandardGlyphs()
 
     def defineStandardMaterials(self):
-        '''
+        """
         Helper method to define the standard materials.
-        '''
+        """
         material_module = self._context.getMaterialmodule()
         material_module.defineStandardMaterials()
 
@@ -211,11 +211,11 @@ def _calculateExtents(values):
     Return the max's and min's as:
      [x_min, x_max, y_min, y_max, z_min, z_max]
     """
-    x_min = 0;
+    x_min = 0
     x_max = 1
-    y_min = 0;
+    y_min = 0
     y_max = 1
-    z_min = 0;
+    z_min = 0
     z_max = 2
     if values:
         initial_value = values[0]

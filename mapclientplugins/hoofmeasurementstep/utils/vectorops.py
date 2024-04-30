@@ -1,7 +1,7 @@
-'''
+"""
 MAP Client, a program to generate detailed musculoskeletal models for OpenSim.
     Copyright (C) 2012  University of Auckland
-    
+
 This file is part of MAP Client. (http://launchpad.net/mapclient)
 
     MAP Client is free software: you can redistribute it and/or modify
@@ -16,14 +16,14 @@ This file is part of MAP Client. (http://launchpad.net/mapclient)
 
     You should have received a copy of the GNU General Public License
     along with MAP Client.  If not, see <http://www.gnu.org/licenses/>..
-'''
+"""
 
 from math import sqrt
 
-'''
+"""
 A collection of functions that operate on python lists as if
 they were vectors.
-'''
+"""
 
 
 def magnitude(v):
@@ -72,10 +72,10 @@ def div(u, c):
 
 
 def rotmx(quaternion):
-    '''
+    """
     This method takes a quaternion representing a rotation
-    and turns it into a rotation matrix. 
-    '''
+    and turns it into a rotation matrix.
+    """
     mag_q = magnitude(quaternion)
     norm_q = div(quaternion, mag_q)
     qw, qx, qy, qz = norm_q

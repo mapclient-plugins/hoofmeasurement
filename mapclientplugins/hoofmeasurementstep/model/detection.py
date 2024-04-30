@@ -1,8 +1,8 @@
-'''
+"""
 Created on Jun 22, 2015
 
 @author: hsorby
-'''
+"""
 from cmlibs.utils.zinc.field import create_field_coordinates, create_field_iso_scalar_for_plane, create_field_plane_visibility
 from cmlibs.utils.zinc.finiteelement import create_cube_element
 
@@ -10,14 +10,14 @@ from mapclientplugins.hoofmeasurementstep.model.plane import Plane
 
 
 class DetectionModel(object):
-    '''
+    """
     classdocs
-    '''
+    """
 
     def __init__(self, parent, region):
-        '''
+        """
         Constructor
-        '''
+        """
         self._parent = parent
         self._region = region
         self._coordinate_field = create_field_coordinates(region.getFieldmodule(), managed=True)
@@ -27,15 +27,15 @@ class DetectionModel(object):
         self._extents = NameError
 
     def _setupDetectionPlane(self, region, coordinate_field):
-        '''
-        Adds a single finite element to the region and keeps a handle to the 
+        """
+        Adds a single finite element to the region and keeps a handle to the
         fields created for the finite element in the following attributes(
         self-documenting names):
             '_coordinate_field'
             '_scale_field'
             '_scaled_coordinate_field'
             '_iso_scalar_field'
-        '''
+        """
         fieldmodule = region.getFieldmodule()
         fieldmodule.beginChange()
 

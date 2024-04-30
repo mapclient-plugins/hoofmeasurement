@@ -1,8 +1,8 @@
-'''
+"""
 Created on Jun 18, 2015
 
 @author: hsorby
-'''
+"""
 from PySide6 import QtGui, QtWidgets
 
 from cmlibs.widgets.handlers.scenemanipulation import SceneManipulation
@@ -14,14 +14,14 @@ ANGLE_RANGE = 50
 
 
 class HoofMeasurementWidget(QtWidgets.QWidget):
-    '''
+    """
     classdocs
-    '''
+    """
 
     def __init__(self, model, parent=None):
-        '''
+        """
         Constructor
-        '''
+        """
         super(HoofMeasurementWidget, self).__init__(parent)
         self._ui = Ui_HoofMeasurementWidget()
         self._ui.setupUi(self)
@@ -48,9 +48,9 @@ class HoofMeasurementWidget(QtWidgets.QWidget):
         self._ui.widgetZinc.setModel(model.getMarkerModel())
         self._ui.widgetZinc.setPlaneAngle(angle_initial_value)
 
-        self._makeConnections()
+        self._make_connections()
 
-    def _makeConnections(self):
+    def _make_connections(self):
         self._ui.pushButtonContinue.clicked.connect(self._continueExecution)
         self._ui.pushButtonViewAll.clicked.connect(self._viewAllButtonClicked)
         self._ui.horizontalSliderAngle.valueChanged.connect(self._angleSliderValueChanged)
