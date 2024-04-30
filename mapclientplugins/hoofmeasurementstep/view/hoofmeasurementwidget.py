@@ -5,6 +5,8 @@ Created on Jun 18, 2015
 '''
 from PySide6 import QtGui, QtWidgets
 
+from cmlibs.widgets.handlers.scenemanipulation import SceneManipulation
+
 from mapclientplugins.hoofmeasurementstep.view.ui_hoofmeasurementwidget import Ui_HoofMeasurementWidget
 from mapclientplugins.hoofmeasurementstep.scene.hoofmeasurementscene import HoofMeasurementScene
 
@@ -42,6 +44,7 @@ class HoofMeasurementWidget(QtWidgets.QWidget):
         self._scene = HoofMeasurementScene(model)
 
         self._ui.widgetZinc.set_context(model.getContext())
+        self._ui.widgetZinc.register_handler(SceneManipulation())
         self._ui.widgetZinc.setModel(model.getMarkerModel())
         self._ui.widgetZinc.setPlaneAngle(angle_initial_value)
 
